@@ -14,7 +14,49 @@ __author__ = 'namju.kim@kakaobrain.com'
 # data path
 _data_path = "asset/data/"
 
+#
+# process non-native data
+#
 
+def process_non_native(csv_file, passage):
+    # create csv writer
+    writer = csv.writer(csv_file,  delimiter=',')
+    
+    # Get trails of speakers
+    parent_path  = _data_path + "non_native_data/wav48" + passage
+    trail_list = glob.glob(parent_path + '/*')
+    
+    # add labels
+    text_path = _data_path + '/txt'+ passage.lower()
+    text = open(text_path).read()
+    sents_n = text.split('.')
+    sentences = [line.replace('\n','') for line in sents_n]
+    labels = [data.str2index(sentence) for sentence in sentences]
+    
+    # add wav files
+    for trail in trail_list:
+        # wav file names
+        wav_file_ids = glob.glob(parent_path + trail +'/*.wav')
+        wav_file_ids = [name for name in wav_file_ids if "_000.wav" not in name]
+        for wav_file, label in zip(wav_file_ids,labels):
+            # load wave file
+            wave, sr = librosa.load(wav_file, mono=True, sr=None)
+            
+            # re-sample ( 48K -> 16K )
+            wave = wave[::3]
+
+            # get mfcc feature
+            mfcc = librosa.feature.mfcc(wave, sr=16000)
+            
+            # filename
+            fn = wav_file.split('/')[-1]
+
+            # save meta info
+            writer.writerow([fn] + label)
+
+            # save mfcc
+            np.save('asset/data/preprocess/mfcc/' + fn + '.npy', mfcc, allow_pickle=False)
+            
 #
 # process VCTK corpus
 #
