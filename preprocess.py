@@ -12,7 +12,7 @@ __author__ = 'namju.kim@kakaobrain.com'
 
 
 # data path
-_data_path = "asset/data/"
+_data_path = "/media/srv/data/"
 
 #
 # process non-native data
@@ -55,7 +55,7 @@ def process_non_native(csv_file, passage):
             writer.writerow([fn] + label)
 
             # save mfcc
-            np.save('asset/data/preprocess/mfcc/' + fn + '.npy', mfcc, allow_pickle=False)
+            np.save('/media/srv/data/preprocess/mfcc/' + fn + '.npy', mfcc, allow_pickle=False)
             
 #
 # process VCTK corpus
@@ -80,7 +80,7 @@ def process_vctk(csv_file):
         # wave file name
         wave_file = _data_path + 'VCTK-Corpus/wav48/%s/' % f[:4] + f + '.wav'
         fn = wave_file.split('/')[-1]
-        target_filename = 'asset/data/preprocess/mfcc/' + fn + '.npy'
+        target_filename = '/media/srv/data/preprocess/mfcc/' + fn + '.npy'
         if os.path.exists( target_filename ):
             continue
         # print info
@@ -150,7 +150,7 @@ def process_libri(csv_file, category):
     # save results
     for i, (wave_file, label) in enumerate(zip(wave_files, labels)):
         fn = wave_file.split('/')[-1]
-        target_filename = 'asset/data/preprocess/mfcc/' + fn + '.npy'
+        target_filename = '/media/srv/data/preprocess/mfcc/' + fn + '.npy'
         if os.path.exists( target_filename ):
             continue
         # print info
@@ -214,7 +214,7 @@ def process_ted(csv_file, category):
     # save results
     for i, (wave_file, label, offset, dur) in enumerate(zip(wave_files, labels, offsets, durs)):
         fn = "%s-%.2f" % (wave_file.split('/')[-1], offset)
-        target_filename = 'asset/data/preprocess/mfcc/' + fn + '.npy'
+        target_filename = '/media/srv/data/preprocess/mfcc/' + fn + '.npy'
         if os.path.exists( target_filename ):
             continue
         # print info
@@ -245,30 +245,40 @@ def process_ted(csv_file, category):
 #
 # Create directories
 #
-if not os.path.exists('asset/data/preprocess'):
-    os.makedirs('asset/data/preprocess')
-if not os.path.exists('asset/data/preprocess/meta'):
-    os.makedirs('asset/data/preprocess/meta')
-if not os.path.exists('asset/data/preprocess/mfcc'):
-    os.makedirs('asset/data/preprocess/mfcc')
+if not os.path.exists('/media/srv/data/preprocess'):
+    os.makedirs('/media/srv/data/preprocess')
+if not os.path.exists('/media/srv/data/preprocess/meta'):
+    os.makedirs('/media/srv/data/preprocess/meta')
+if not os.path.exists('/media/srv/data/preprocess/mfcc'):
+    os.makedirs('/media/srv/data/preprocess/mfcc')
 
 
 #
 # Run pre-processing for training
 #
 
+# non-native corpus Rainbow passage
+csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
+process_non_native(csv_f,"Rainbow")
+csv_f.close()
+
+# non-native corpus Northwind passage
+csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
+process_non_native(csv_f,"Rainbow")
+csv_f.close()
+
 # VCTK corpus
-csv_f = open('asset/data/preprocess/meta/train.csv', 'w')
+csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
 process_vctk(csv_f)
 csv_f.close()
 
 # LibriSpeech corpus for train
-csv_f = open('asset/data/preprocess/meta/train.csv', 'a+')
+csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'a+')
 process_libri(csv_f, 'train-clean-360')
 csv_f.close()
 
 # TEDLIUM corpus for train
-csv_f = open('asset/data/preprocess/meta/train.csv', 'a+')
+csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'a+')
 process_ted(csv_f, 'train')
 csv_f.close()
 
@@ -277,12 +287,12 @@ csv_f.close()
 #
 
 # LibriSpeech corpus for valid
-csv_f = open('asset/data/preprocess/meta/valid.csv', 'w')
+csv_f = open('/media/srv/data/preprocess/meta/valid.csv', 'w')
 process_libri(csv_f, 'dev-clean')
 csv_f.close()
 
 # TEDLIUM corpus for valid
-csv_f = open('asset/data/preprocess/meta/valid.csv', 'a+')
+csv_f = open('/media/srv/data/preprocess/meta/valid.csv', 'a+')
 process_ted(csv_f, 'dev')
 csv_f.close()
 
@@ -291,12 +301,12 @@ csv_f.close()
 #
 
 # LibriSpeech corpus for test
-csv_f = open('asset/data/preprocess/meta/test.csv', 'w')
+csv_f = open('/media/srv/data/preprocess/meta/test.csv', 'w')
 process_libri(csv_f, 'test-clean')
 csv_f.close()
 
 # TEDLIUM corpus for test
-csv_f = open('asset/data/preprocess/meta/test.csv', 'a+')
+csv_f = open('/media/srv/data/preprocess/meta/test.csv', 'a+')
 process_ted(csv_f, 'test')
 csv_f.close()
 
