@@ -27,7 +27,7 @@ def process_non_native(csv_file, passage):
     trail_list = glob.glob(parent_path + '/*')
     
     # add labels
-    text_path = _data_path + '/txt'+ passage.lower()
+    text_path = _data_path + passage.lower() + '/txt'
     text = open(text_path).read()
     sents_n = text.split('.')
     sentences = [line.replace('\n','') for line in sents_n]
