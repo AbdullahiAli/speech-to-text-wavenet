@@ -23,7 +23,7 @@ def process_non_native(csv_file, passage):
     writer = csv.writer(csv_file,  delimiter=',')
     
     # Get trails of speakers
-    parent_path  = _data_path + "non_native_data/wav48" + passage
+    parent_path  = _data_path + "non_native_data/wav48/" + passage
     trail_list = glob.glob(parent_path + '/*')
     
     # add labels
@@ -32,7 +32,7 @@ def process_non_native(csv_file, passage):
     sents_n = text.split('.')
     sentences = [line.replace('\n','') for line in sents_n]
     labels = [data.str2index(sentence) for sentence in sentences]
-    
+ 
     # add wav files
     for trail in trail_list:
         # wav file names
@@ -264,7 +264,7 @@ csv_f.close()
 
 # non-native corpus Northwind passage
 csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
-process_non_native(csv_f,"Rainbow")
+process_non_native(csv_f,"NorthWind")
 csv_f.close()
 
 # VCTK corpus
