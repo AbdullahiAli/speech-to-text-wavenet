@@ -17,7 +17,7 @@ _data_path = "/media/srv/data/"
 #
 # process non-native data
 #
-
+"""
 def process_non_native(csv_file, passage):
     # create csv writer
     writer = csv.writer(csv_file,  delimiter=',')
@@ -56,6 +56,7 @@ def process_non_native(csv_file, passage):
 
             # save mfcc
             np.save('/media/srv/data/preprocess/mfcc/' + fn + '.npy', mfcc, allow_pickle=False)
+"""
             
 #
 # process VCTK corpus
@@ -258,6 +259,7 @@ if not os.path.exists('/media/srv/data/preprocess/mfcc'):
 #
 
 # non-native corpus Rainbow passage
+"""
 csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
 process_non_native(csv_f,"Rainbow")
 csv_f.close()
@@ -266,7 +268,7 @@ csv_f.close()
 csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
 process_non_native(csv_f,"NorthWind")
 csv_f.close()
-
+"""
 # VCTK corpus
 csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
 process_vctk(csv_f)
