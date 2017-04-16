@@ -25,14 +25,17 @@ def process_non_native(csv_file, passage):
     # Get trails of speakers
     parent_path  = _data_path + "non_native_data/wav48/" + passage
     trail_list = glob.glob(parent_path + '/*')
-    
+    print("trial_list first item: %s" % trial_list[0])
+    print("parent_path: %s" % parent_path)
     # add labels
     text_path = _data_path + "non_native_data/txt/" + passage.lower() + '.txt'
+    print("text_path: %s" % text_path)
     text = open(text_path).read()
     sents_n = text.split('.')
     sentences = [line.replace('\n','') for line in sents_n]
+    print("length sentences: %d" % len(sentences))
     labels = [data.str2index(sentence) for sentence in sentences]
- 
+    print("length labels: %d" % len(labels))
     # add wav files
     for trail in trail_list:
         # wav file names
