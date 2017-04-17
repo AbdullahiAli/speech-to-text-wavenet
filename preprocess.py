@@ -53,13 +53,13 @@ def process_non_native(csv_file, passage):
             mfcc = librosa.feature.mfcc(wave, sr=16000)
             
             # filename
-            fn = wav_file.split('/')[-1]
+            fn = wav_file.split('/')[-1]  + "_" + passage.lower()
 
             # save meta info
             writer.writerow([fn] + label)
 
             # save mfcc
-            np.save('/media/srv/data/preprocess/mfcc/' + fn + passage.lower() +  '.npy', mfcc, allow_pickle=False)
+            np.save('/media/srv/data/preprocess/mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)
  
             
 #
