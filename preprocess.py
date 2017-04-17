@@ -39,7 +39,7 @@ def process_non_native(csv_file, passage):
     # add wav files
     for trail in trail_list:
         # wav file names
-        wav_file_ids = glob.glob(parent_path + trail +'/*.wav')
+        wav_file_ids = glob.glob(trail +'/*.wav')
         print("wav_file_ids: %s" % wav_file_ids)
         print("wav_file_ids expression: %s" % parent_path + trail + '/*.wav')
         wav_file_ids = [name for name in wav_file_ids if "_000.wav" not in name]
