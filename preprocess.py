@@ -40,8 +40,10 @@ def process_non_native(csv_file, passage):
     for trail in trail_list:
         # wav file names
         wav_file_ids = glob.glob(parent_path + trail +'/*.wav')
+        print("wav_file_ids: %s" % wav_file_ids)
+        print("wav_file_ids expression: %s" % parent_path + trail + '/*.wav')
         wav_file_ids = [name for name in wav_file_ids if "_000.wav" not in name]
-        print("wave_file name: %s" % wav_file_ids[0])
+       
         for wav_file, label in zip(wav_file_ids,labels):
             # load wave file
             wave, sr = librosa.load(wav_file, mono=True, sr=None)
