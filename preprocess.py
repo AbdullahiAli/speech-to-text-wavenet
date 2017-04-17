@@ -25,23 +25,21 @@ def process_non_native(csv_file, passage):
     # Get trails of speakers
     parent_path  = _data_path + "non_native_data/wav48/" + passage
     trail_list = glob.glob(parent_path + '/*')
-    print("trail_list first item: %s" % trail_list[0])
-    print("parent_path: %s" % parent_path)
+   
     # add labels
     text_path = _data_path + "non_native_data/txt/" + passage.lower() + '.txt'
-    print("text_path: %s" % text_path)
+    
     text = open(text_path).read()
     sents_n = text.split('.')
     sentences = [line.replace('\n','') for line in sents_n]
-    print("length sentences: %d" % len(sentences))
+   
     labels = [data.str2index(sentence) for sentence in sentences]
-    print("length labels: %d" % len(labels))
+    
     # add wav files
     for trail in trail_list:
         # wav file names
         wav_file_ids = glob.glob(trail +'/*.wav')
-        print("wav_file_ids: %s" % wav_file_ids)
-        print("wav_file_ids expression: %s" % parent_path + trail + '/*.wav')
+       
         wav_file_ids = [name for name in wav_file_ids if "_000.wav" not in name]
        
         for wav_file, label in zip(wav_file_ids,labels):
@@ -61,7 +59,7 @@ def process_non_native(csv_file, passage):
             writer.writerow([fn] + label)
 
             # save mfcc
-            np.save('/media/srv/data/preprocess/mfcc/' + fn + '.npy', mfcc, allow_pickle=False)
+            np.save('/media/srv/data/preprocess/mfcc/' + fn + passage.lower() +  '.npy', mfcc, allow_pickle=False)
  
             
 #
