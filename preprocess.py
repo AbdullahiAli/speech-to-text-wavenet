@@ -54,7 +54,7 @@ def process_non_native(csv_file, passage):
             
             # filename
             fn = wav_file.split('/')[-1]  
-            fn = fn.split('.')[0] +  "_" + passage.lower() + fn.split('.')[-1]
+            fn = fn.split('.')[0] +  "_" + passage.lower() + "." + fn.split('.')[-1]
 
             # save meta info
             writer.writerow([fn] + label)
