@@ -265,15 +265,15 @@ if not os.path.exists('/media/srv/data/preprocess/mfcc'):
 
 # non-native corpus Rainbow passage
 
-csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
+csv_f = open('/media/srv/data/preprocess/meta/non_native_train.csv', 'w')
 process_non_native(csv_f,"Rainbow")
 csv_f.close()
 
 # non-native corpus Northwind passage
-csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
+csv_f = open('/media/srv/data/preprocess/meta/non_native_train.csv', 'w')
 process_non_native(csv_f,"NorthWind")
 csv_f.close()
-"""
+
 # VCTK corpus
 csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
 process_vctk(csv_f)
@@ -317,4 +317,3 @@ csv_f = open('/media/srv/data/preprocess/meta/test.csv', 'a+')
 process_ted(csv_f, 'test')
 csv_f.close()
 
-"""
