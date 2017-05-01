@@ -60,7 +60,7 @@ def process_non_native(csv_file, passage):
             writer.writerow([fn] + label)
 
             # save mfcc
-            np.save('/media/srv/data/preprocess/mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)
+            np.save('/media/srv/data/preprocess/non_native_mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)
  
             
 #
