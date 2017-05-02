@@ -111,7 +111,10 @@ class SpeechCorpus(object):
             reader = csv.reader(csv_file, delimiter=',')
             for row in reader:
                 # mfcc file
-                mfcc_file.append(_data_path + 'preprocess/mfcc/' + row[0] + '.npy')
+                if set_name == 'non_native_train':
+                      mfcc_file.append(_data_path + 'preprocess/non_native_mfcc/' + row[0] + '.npy')
+                else:
+                    mfcc_file.append(_data_path + 'preprocess/mfcc/' + row[0] + '.npy')
                 # label info ( convert to string object for variable-length support )
                 label.append(np.asarray(row[1:], dtype=np.int).tostring())
 
