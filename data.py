@@ -118,6 +118,10 @@ class SpeechCorpus(object):
                 # label info ( convert to string object for variable-length support )
                 label.append(np.asarray(row[1:], dtype=np.int).tostring())
 
+        # Artificially enlarge the data set if non-native data
+        if set_name == 'non_native_train':
+            label *= 2
+            mfcc_file *= 2
         # to constant tensor
         label_t = tf.convert_to_tensor(label)
         mfcc_file_t = tf.convert_to_tensor(mfcc_file)
