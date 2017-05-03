@@ -120,8 +120,8 @@ class SpeechCorpus(object):
 
         # Artificially enlarge the data set if non-native data
         if set_name == 'non_native_train':
-            label *= 100
-            mfcc_file *= 100
+            label *= 150
+            mfcc_file *= 150
         # to constant tensor
         label_t = tf.convert_to_tensor(label)
         mfcc_file_t = tf.convert_to_tensor(mfcc_file)
