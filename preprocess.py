@@ -33,7 +33,7 @@ def process_non_native(csv_file, passage):
     sents_n = text.split('.')
     sentences = [line.replace('\n','') for line in sents_n]
    
-    labels = [data.str2index(sentence) for sentence in sentences]
+    labels = [data.str2index(sentence) for sentence in sentences][0:-1]
     
     # add wav files
     for trail in trail_list:
