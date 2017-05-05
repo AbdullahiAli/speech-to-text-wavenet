@@ -271,7 +271,7 @@ csv_f.close()
 
 # non-native corpus Rainbow passage
 
-csv_f = open('/media/srv/data/preprocess/meta/non_native_train.csv', 'w')
+csv_f = open('/media/srv/data/preprocess/meta/non_native_train.csv', 'a+')
 process_non_native(csv_f,"Rainbow")
 csv_f.close()
 """
