@@ -144,8 +144,7 @@ class SpeechCorpus(object):
         # split data
         self.label, self.mfcc = batch_queue
         for l in label:
-            if len(label) == 0:
-                print(label)
+            print(label)
         # batch * time * dim
         self.mfcc = self.mfcc.sg_transpose(perm=[0, 2, 1])
         # calc total batch count
