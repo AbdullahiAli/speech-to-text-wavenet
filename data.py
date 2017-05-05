@@ -122,7 +122,10 @@ class SpeechCorpus(object):
         if set_name == 'non_native_train':
             label *= 5000
             mfcc_file *= 5000
+        for l,m in zip(label, mfcc_file):
+            print("length label: %d, length mfcc: %d" % (len(l), len(m)))
         # to constant tensor
+        
         label_t = tf.convert_to_tensor(label)
         mfcc_file_t = tf.convert_to_tensor(mfcc_file)
 
@@ -143,8 +146,7 @@ class SpeechCorpus(object):
 
         # split data
         self.label, self.mfcc = batch_queue
-        for l,m in zip(self.label, self.mfcc):
-            print("length label: %d, length mfcc: %d" % (len(l), len(m)))
+     
         # batch * time * dim
         self.mfcc = self.mfcc.sg_transpose(perm=[0, 2, 1])
         # calc total batch count
