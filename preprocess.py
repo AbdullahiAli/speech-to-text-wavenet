@@ -41,8 +41,7 @@ def process_non_native(csv_file, passage):
         wav_file_ids = glob.glob(trail +'/*.wav')
        
         wav_file_ids = [name for name in wav_file_ids if "_000.wav" not in name]
-        print("last item of labels: %s" % labels[-1])
-        print("length wav_files_ids: %d, length labels: %d" %(len( wav_file_ids),len(labels)))
+       
         for wav_file, label in zip(wav_file_ids,labels):
             # load wave file
             wave, sr = librosa.load(wav_file, mono=True, sr=None)
