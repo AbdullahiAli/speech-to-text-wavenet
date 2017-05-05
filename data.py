@@ -119,9 +119,11 @@ class SpeechCorpus(object):
                 label.append(np.asarray(row[1:], dtype=np.int).tostring())
 
         # Artificially enlarge the data set if non-native data
+        """
         if set_name == 'non_native_train':
             label *= 5000
             mfcc_file *= 5000
+        """
         for l,m in zip(label, mfcc_file):
             print("length label: %d, length mfcc: %d" % (len(l), len(m)))
         # to constant tensor
