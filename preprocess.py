@@ -276,7 +276,7 @@ csv_f.close()
 csv_f = open('/media/srv/data/preprocess/meta/non_native_train.csv', 'a+')
 process_non_native(csv_f,"Rainbow")
 csv_f.close()
-"""
+
 # VCTK corpus
 csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
 process_vctk(csv_f)
@@ -319,4 +319,3 @@ csv_f.close()
 csv_f = open('/media/srv/data/preprocess/meta/test.csv', 'a+')
 process_ted(csv_f, 'test')
 csv_f.close()
-"""
