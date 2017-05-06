@@ -121,8 +121,8 @@ class SpeechCorpus(object):
         # Artificially enlarge the data set if non-native data
         
         if set_name == 'non_native_train':
-            label *= 1500
-            mfcc_file *= 1500
+            label *= 500
+            mfcc_file *= 500
        
        
         # to constant tensor
@@ -138,6 +138,7 @@ class SpeechCorpus(object):
         label_q, mfcc_q = _load_mfcc(source=[label_q, mfcc_file_q],
                                      dtypes=[tf.sg_intx, tf.sg_floatx],
                                      capacity=256, num_threads=64)
+
 
         # create batch queue with dynamic pad
         batch_queue = tf.train.batch([label_q, mfcc_q], batch_size,
