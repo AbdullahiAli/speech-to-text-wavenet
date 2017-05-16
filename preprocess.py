@@ -48,7 +48,7 @@ def process_non_native(csv_file, passage):
             
             # re-sample ( 48K -> 16K )
             wave = wave[::3]
-
+          
             # get mfcc feature
             mfcc = librosa.feature.mfcc(wave, sr=16000)
             
