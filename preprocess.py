@@ -278,9 +278,9 @@ process_non_native(csv_f,"Rainbow")
 csv_f.close()
 
 # VCTK corpus
-csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
-process_vctk(csv_f)
-csv_f.close()
+#csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
+#process_vctk(csv_f)
+#csv_f.close()
 
 # LibriSpeech corpus for train
 #csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'a+')
@@ -288,7 +288,7 @@ csv_f.close()
 #csv_f.close()
 
 # TEDLIUM corpus for train
-csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'a+')
+csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
 process_ted(csv_f, 'train')
 csv_f.close()
 
@@ -302,7 +302,7 @@ csv_f.close()
 #csv_f.close()
 
 # TEDLIUM corpus for valid
-csv_f = open('/media/srv/data/preprocess/meta/valid.csv', 'a+')
+csv_f = open('/media/srv/data/preprocess/meta/valid.csv', 'w')
 process_ted(csv_f, 'dev')
 csv_f.close()
 
@@ -316,6 +316,6 @@ csv_f.close()
 #csv_f.close()
 
 # TEDLIUM corpus for test
-csv_f = open('/media/srv/data/preprocess/meta/test.csv', 'a+')
+csv_f = open('/media/srv/data/preprocess/meta/test.csv', 'w')
 process_ted(csv_f, 'test')
 csv_f.close()
