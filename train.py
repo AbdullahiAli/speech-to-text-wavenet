@@ -14,7 +14,7 @@ tf.sg_verbosity(10)
 # hyper parameters
 #
 
-batch_size = 4    # total batch size
+batch_size = 64    # total batch size
 
 #
 # inputs
