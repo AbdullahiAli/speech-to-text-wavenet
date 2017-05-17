@@ -266,21 +266,21 @@ if not os.path.exists('/media/srv/data/preprocess/mfcc'):
 #
 
 
-# non-native corpus Northwind passage
-csv_f = open('/media/srv/data/preprocess/meta/non_native_train.csv', 'w')
-process_non_native(csv_f,"NorthWind")
-csv_f.close()
-
-# non-native corpus Rainbow passage
-
-csv_f = open('/media/srv/data/preprocess/meta/non_native_train.csv', 'a+')
-process_non_native(csv_f,"Rainbow")
-csv_f.close()
-
-# VCTK corpus
-#csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
-#process_vctk(csv_f)
+## non-native corpus Northwind passage
+#csv_f = open('/media/srv/data/preprocess/meta/non_native_train.csv', 'w')
+#process_non_native(csv_f,"NorthWind")
 #csv_f.close()
+#
+## non-native corpus Rainbow passage
+#
+#csv_f = open('/media/srv/data/preprocess/meta/non_native_train.csv', 'a+')
+#process_non_native(csv_f,"Rainbow")
+#csv_f.close()
+#
+## VCTK corpus
+csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'a+')
+process_vctk(csv_f)
+csv_f.close()
 
 # LibriSpeech corpus for train
 #csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'a+')
@@ -288,13 +288,13 @@ csv_f.close()
 #csv_f.close()
 
 # TEDLIUM corpus for train
-csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
-process_ted(csv_f, 'train')
-csv_f.close()
+#csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
+#process_ted(csv_f, 'train')
+#csv_f.close()
 
-csv_f = open('/media/srv/data/preprocess/meta/train_small_batch.csv', 'w')
-process_ted(csv_f, 'train_small_batch')
-csv_f.close()
+#csv_f = open('/media/srv/data/preprocess/meta/train_small_batch.csv', 'w')
+#process_ted(csv_f, 'mini_train')
+#csv_f.close()
 #
 # Run pre-processing for validation
 #
