@@ -2,7 +2,7 @@ import sugartensor as tf
 import numpy as np
 import csv
 import string
-
+import os
 
 __author__ = 'namju.kim@kakaobrain.com'
 
@@ -111,12 +111,11 @@ class SpeechCorpus(object):
             reader = csv.reader(csv_file, delimiter=',')
             for row in reader:
                 # mfcc file
-                if "MichaelSpecter_2010.sph.wav" in row[0]:
-                    continue
+                
                 if set_name == 'non_native_train':
                       mfcc_file.append(_data_path + 'preprocess/non_native_mfcc/' + row[0] + '.npy')
-                elif set_name == "minibatch_train":
-                     mfcc_file.append(_data_path + 'preprocess/mini_mfcc/' + row[0] + '.npy')
+                elif set_name == "minibatch_train" and os.path.exists(_data_path + 'preprocess/mini_mfcc/' + row[0] + '.npy'):
+                    mfcc_file.append(_data_path + 'preprocess/mini_mfcc/' + row[0] + '.npy')
                 else:
                     mfcc_file.append(_data_path + 'preprocess/mfcc/' + row[0] + '.npy')
                 # label info ( convert to string object for variable-length support )
