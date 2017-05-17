@@ -111,9 +111,11 @@ class SpeechCorpus(object):
             reader = csv.reader(csv_file, delimiter=',')
             for row in reader:
                 # mfcc file
+                if "MichaelSpecter_2010.sph.wav" in row[0]:
+                    continue
                 if set_name == 'non_native_train':
                       mfcc_file.append(_data_path + 'preprocess/non_native_mfcc/' + row[0] + '.npy')
-                elif set_name == "mini_train":
+                elif set_name == "minibatch_train":
                      mfcc_file.append(_data_path + 'preprocess/mini_mfcc/' + row[0] + '.npy')
                 else:
                     mfcc_file.append(_data_path + 'preprocess/mfcc/' + row[0] + '.npy')
