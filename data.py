@@ -113,6 +113,8 @@ class SpeechCorpus(object):
                 # mfcc file
                 if set_name == 'non_native_train':
                       mfcc_file.append(_data_path + 'preprocess/non_native_mfcc/' + row[0] + '.npy')
+                elif set_name == "mini_train":
+                     mfcc_file.append(_data_path + 'preprocess/mini_mfcc/' + row[0] + '.npy')
                 else:
                     mfcc_file.append(_data_path + 'preprocess/mfcc/' + row[0] + '.npy')
                 # label info ( convert to string object for variable-length support )

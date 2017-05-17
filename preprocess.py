@@ -292,6 +292,9 @@ csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'w')
 process_ted(csv_f, 'train')
 csv_f.close()
 
+csv_f = open('/media/srv/data/preprocess/meta/train_small_batch.csv', 'w')
+process_ted(csv_f, 'train_small_batch')
+csv_f.close()
 #
 # Run pre-processing for validation
 #
@@ -302,9 +305,9 @@ csv_f.close()
 #csv_f.close()
 
 # TEDLIUM corpus for valid
-csv_f = open('/media/srv/data/preprocess/meta/valid.csv', 'w')
-process_ted(csv_f, 'dev')
-csv_f.close()
+#csv_f = open('/media/srv/data/preprocess/meta/valid.csv', 'w')
+#process_ted(csv_f, 'dev')
+#csv_f.close()
 
 #
 # Run pre-processing for testing
@@ -316,6 +319,6 @@ csv_f.close()
 #csv_f.close()
 
 # TEDLIUM corpus for test
-csv_f = open('/media/srv/data/preprocess/meta/test.csv', 'w')
-process_ted(csv_f, 'test')
-csv_f.close()
+#csv_f = open('/media/srv/data/preprocess/meta/test.csv', 'w')
+#process_ted(csv_f, 'test')
+#csv_f.close()

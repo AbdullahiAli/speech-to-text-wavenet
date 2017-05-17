@@ -14,7 +14,7 @@ tf.sg_verbosity(10)
 # hyper parameters
 #
 
-batch_size = 64    # total batch size
+batch_size = 16    # total batch size
 
 #
 # inputs
@@ -45,6 +45,6 @@ def get_loss(opt):
 #
 # train
 #
-tf.sg_train(lr=0.000001, loss=get_loss(input=inputs, target=labels, seq_len=seq_len),
+tf.sg_train(lr=0.0001, loss=get_loss(input=inputs, target=labels, seq_len=seq_len),
             ep_size=data.num_batch, max_ep=50)
 
