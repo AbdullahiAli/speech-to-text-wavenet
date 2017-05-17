@@ -23,7 +23,7 @@ batch_size = 16    # total batch size
 #
 
 # corpus input tensor
-data = SpeechCorpus(batch_size=batch_size * tf.sg_gpus(), set_name = "mini_train")
+data = SpeechCorpus(batch_size=batch_size * tf.sg_gpus(), set_name = "minibatch_train")
 
 # mfcc feature of audio
 inputs = tf.split(data.mfcc, tf.sg_gpus(), axis=0)
