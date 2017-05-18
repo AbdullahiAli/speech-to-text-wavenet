@@ -3,7 +3,7 @@ import numpy as np
 import csv
 import string
 import os
-
+import random 
 __author__ = 'namju.kim@kakaobrain.com'
 
 
@@ -114,15 +114,18 @@ class SpeechCorpus(object):
                 
                 if set_name == 'non_native_train':
                       mfcc_file.append(_data_path + 'preprocess/non_native_mfcc/' + row[0] + '.npy')
-                elif set_name == "minibatch_train" and os.path.exists(_data_path + 'preprocess/mini_mfcc/' + row[0] + '.npy'):
-                    mfcc_file.append(_data_path + 'preprocess/mini_mfcc/' + row[0] + '.npy')
                 else:
                     mfcc_file.append(_data_path + 'preprocess/mfcc/' + row[0] + '.npy')
                 # label info ( convert to string object for variable-length support )
                 label.append(np.asarray(row[1:], dtype=np.int).tostring())
 
-        # Artificially enlarge the data set if non-native data
         
+        
+        # Test whether it works with a mini_batch:
+        label, mfcc_file = zip(*random.sample(list(zip(label,mfcc_file)),1000))
+        label, mfcc_file = list(label), list(mfcc_file)
+        
+        # Artificially enlarge the data set if non-native data
         if set_name == 'non_native_train':
             label *= 500
             mfcc_file *= 500
