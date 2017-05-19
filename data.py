@@ -122,8 +122,8 @@ class SpeechCorpus(object):
         
         
         # Test whether it works with a mini_batch:
-        label, mfcc_file = zip(*random.sample(list(zip(label,mfcc_file)),10000))
-        label, mfcc_file = list(label), list(mfcc_file)
+        #label, mfcc_file = zip(*random.sample(list(zip(label,mfcc_file)),10000))
+        #label, mfcc_file = list(label), list(mfcc_file)
         
         # Artificially enlarge the data set if non-native data
         if set_name == 'non_native_train':
