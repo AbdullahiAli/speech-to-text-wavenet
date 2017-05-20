@@ -45,6 +45,6 @@ def get_loss(opt):
 #
 # train
 #
-tf.sg_train(lr=0.00001, loss=get_loss(input=inputs, target=labels, seq_len=seq_len),
+tf.sg_train(optim = 'Adam', lr=0.00001, loss=get_loss(input=inputs, target=labels, seq_len=seq_len),
             ep_size=data.num_batch, max_ep=50)
 
