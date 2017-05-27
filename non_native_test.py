@@ -64,7 +64,7 @@ with tf.Session() as sess:
 
     # init variables
     tf.sg_init(sess)
-
+    sess.run(tf.Print([1], [1], "hi"))
     # restore parameters
     saver = tf.train.Saver()
     saver.restore(sess, tf.train.latest_checkpoint('asset/train'))
