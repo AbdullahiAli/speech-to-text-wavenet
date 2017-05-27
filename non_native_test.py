@@ -27,9 +27,9 @@ batch_size = 1     # batch size
 non_native_data = data.SpeechCorpus(batch_size=batch_size * tf.sg_gpus(), set_name="non_native_test")
 error = []
 # mfcc feature of audio
-inputs = tf.split(non_native_data.mfcc, tf.sg_gpus(), axis=0)
+inputs = non_native_data.mfcc
 # target sentence label
-labels = tf.split(non_native_data.label, tf.sg_gpus(), axis=0)
+labels = non_native_data.label
 # vocabulary size
 voca_size = data.voca_size
 
@@ -70,7 +70,7 @@ with tf.Session() as sess:
     saver.restore(sess, tf.train.latest_checkpoint('asset/train'))
     # run session
     for mfcc,label in zip(inputs,labels):
-        sess.run(tf.Print([1], [1], mfcc))
+        sess.run(tf.Print([1], [1], type(mfcc)))
         predicted = sess.run(y, feed_dict={x: mfcc.eval()})
     
         data.print_index(predicted)
