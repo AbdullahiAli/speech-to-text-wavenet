@@ -68,8 +68,8 @@ with tf.Session() as sess:
     # restore parameters
     saver = tf.train.Saver()
     saver.restore(sess, tf.train.latest_checkpoint('asset/train'))
-    sess.run(tf.Print([1], [1], type(inputs.eval())))
-    sess.run(tf.Print([1], [1], type(labels.eval())))
+    sess.run(tf.Print([1], [1], type(sess.run(inputs))))
+    sess.run(tf.Print([1], [1],  type(sess.run(labels))))
     # run session
     for mfcc,label in zip(inputs,labels):
         
