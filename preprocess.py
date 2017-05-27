@@ -62,7 +62,10 @@ def process_non_native(csv_file, passage, data_type):
                 writer.writerow([fn] + label)
     
                 # save mfcc
-                np.save('/media/srv/data/preprocess/non_native_mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)
+                if data_type == "train":
+                    np.save('/media/srv/data/preprocess/non_native_train_mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)
+                elif data_type == "test":
+                     np.save('/media/srv/data/preprocess/non_native_test_mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)
  
 #
 # process non_native corpus according to strategy 1
