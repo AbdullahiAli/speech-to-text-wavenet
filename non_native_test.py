@@ -72,7 +72,8 @@ with tf.Session() as sess:
     for mfcc,label in zip(inputs,labels):
         sess.run(tf.Print([1], [1], "hi"))
         predicted = sess.run(y, feed_dict={x: mfcc.eval()})
-        data.print_index(predicted)
+        sess.run(tf.Print(mfcc.eval()))
+        #data.print_index(predicted)
         data.return_index(predicted)
         error.append(wer(predicted.split(),tf.as_string(label).split()))
     print("WER: " + (sum(error)/len(error)))
