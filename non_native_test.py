@@ -24,12 +24,12 @@ batch_size = 1     # batch size
 # inputs
 #
 # corpus input tensor
-data = data.SpeechCorpus(batch_size=batch_size * tf.sg_gpus(), set_name="non_native_test")
+non_native_data = data.SpeechCorpus(batch_size=batch_size * tf.sg_gpus(), set_name="non_native_test")
 error = []
 # mfcc feature of audio
-inputs = tf.split(data.mfcc, tf.sg_gpus(), axis=0)
+inputs = tf.split(non_native_data.mfcc, tf.sg_gpus(), axis=0)
 # target sentence label
-labels = tf.split(data.label, tf.sg_gpus(), axis=0)
+labels = tf.split(non_native_data.label, tf.sg_gpus(), axis=0)
 # vocabulary size
 voca_size = data.voca_size
 
