@@ -19,7 +19,7 @@ batch_size = 16    # total batch size
 
             
 # non-native corpus input tensor
-non_native_data = SpeechCorpus(batch_size=batch_size * tf.sg_gpus(), set_name ="non_native_train")
+non_native_data = SpeechCorpus(batch_size=batch_size * tf.sg_gpus(), set_name ="strategy1")
 
 # non_native_mfcc features of audio
 inputs = tf.split(non_native_data.mfcc, tf.sg_gpus(), axis = 0)
@@ -43,7 +43,7 @@ def get_loss(opt):
 #
 # retrain
 #
-tf.sg_train(lr=0.0001, loss=get_loss(input=inputs, target=labels, seq_len=seq_len),
+tf.sg_train(optim = 'Adam', lr=0.0001, loss=get_loss(input=inputs, target=labels, seq_len=seq_len),
             ep_size=non_native_data.num_batch, max_ep=50)
             
 
