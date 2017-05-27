@@ -3,7 +3,7 @@
 import sugartensor as tf
 from data import SpeechCorpus, voca_size
 from model import *
-
+from softmax_classifier import *
 __author__ = 'a.ali@student.ru.nl'
 
 
@@ -36,9 +36,10 @@ for input_ in inputs:
 @tf.sg_parallel
 def get_loss(opt):
     # encode audio feature
-    logit = get_logit(opt.input[opt.gpu_index], voca_size=voca_size)
+    logits = get_logits(opt.input[opt.gpu_index], voca_size=voca_size)
+    probabilities = get_predictions(logits)
     # CTC loss
-    return logit.sg_ctc(target=opt.target[opt.gpu_index], seq_len=opt.seq_len[opt.gpu_index])
+    return probabilities.sg_ctc(target=opt.target[opt.gpu_index], seq_len=opt.seq_len[opt.gpu_index])
 
 #
 # retrain
