@@ -104,6 +104,40 @@ def _augment_speech(mfcc):
 
     return mfcc
 
+# Speech Corpus
+class NonNativeSpeechCorpus(object):
+
+    def __init__(self, batch_size=16, set_name='train'):
+
+        # load meta file
+        label, mfcc_file = [], []
+        with open(_data_path + 'preprocess/meta/%s.csv' % set_name) as csv_file:
+            reader = csv.reader(csv_file, delimiter=',')
+            for row in reader:
+                # mfcc file
+                
+                if set_name == 'non_native_train':
+                      mfcc_file.append(_data_path + 'preprocess/non_native_train_mfcc/' + row[0] + '.npy')
+                elif set_name == "non_native_test":
+                    mfcc_file.append(_data_path + 'preprocess/non_native_test_mfcc/' + row[0] + '.npy')
+                else:
+                    mfcc_file.append(_data_path + 'preprocess/mfcc/' + row[0] + '.npy')
+                # label info ( convert to string object for variable-length support )
+                label.append(np.asarray(row[1:], dtype=np.int).tostring())
+
+       
+
+        # split data
+        mfcc = [_augment_speech(np.load(file)) for file in mfcc_file]
+        self.label, self.mfcc = label, mfcc
+     
+       
+        # calc total batch count
+        self.num_batch = len(label) // batch_size
+
+        # print info
+        tf.sg_info('%s set loaded.(total data=%d, total batch=%d)'
+                   % (set_name.upper(), len(label), self.num_batch))
 
 # Speech Corpus
 class SpeechCorpus(object):

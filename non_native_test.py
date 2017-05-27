@@ -24,7 +24,7 @@ batch_size = 1     # batch size
 # inputs
 #
 # corpus input tensor
-non_native_data = data.SpeechCorpus(batch_size=batch_size * tf.sg_gpus(), set_name="non_native_test")
+non_native_data = data.NonNativeSpeechCorpus(batch_size=batch_size * tf.sg_gpus(), set_name="non_native_test")
 error = []
 # mfcc feature of audio
 inputs = non_native_data.mfcc
@@ -68,16 +68,15 @@ with tf.Session() as sess:
     # restore parameters
     saver = tf.train.Saver()
     saver.restore(sess, tf.train.latest_checkpoint('asset/train'))
-    sess.run(tf.Print([1], [1], type(sess.run(inputs))))
-    sess.run(tf.Print([1], [1],  type(sess.run(labels))))
+    
     # run session
-    for mfcc,label in zip(inputs,labels):
+    for mfcc, label in zip(inputs,labels):
         
-        predicted = sess.run(y, feed_dict={x: mfcc.eval()})
+        predicted = sess.run(y, feed_dict={x: mfcc})
     
         data.print_index(predicted)
         data.return_index(predicted)
-        error.append(wer(predicted.split(),tf.as_string(label).split()))
+        error.append(wer(predicted.split(),label.split()))
     print("WER: " + (sum(error)/len(error)))
         
     # print label
