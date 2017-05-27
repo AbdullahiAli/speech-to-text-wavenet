@@ -36,7 +36,7 @@ for input_ in inputs:
 @tf.sg_parallel
 def get_loss(opt):
     # encode audio feature
-    logits = get_logits(opt.input[opt.gpu_index], voca_size=voca_size)
+    logits = get_logit(opt.input[opt.gpu_index], voca_size=voca_size)
     probabilities = get_predictions(logits)
     # CTC loss
     return probabilities.sg_ctc(target=opt.target[opt.gpu_index], seq_len=opt.seq_len[opt.gpu_index])
