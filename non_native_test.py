@@ -78,7 +78,7 @@ with tf.Session() as sess:
         predicted = data.return_index(predicted)
         error.append(wer(predicted.split(),label.split()))
     print(error)
-    print("WER: " + (sum(error)/len(error)))
+    print("WER: %2f" % (sum(error)/len(error)))
         
     # print label
     
