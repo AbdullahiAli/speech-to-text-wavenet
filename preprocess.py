@@ -48,10 +48,10 @@ def process_non_native(csv_file, passage, data_type):
             
             # re-sample ( 48K -> 16K )
             wave = wave[::3]
-            
+         
             # get mfcc feature
             mfcc = librosa.feature.mfcc(wave, sr=16000)
-            
+           
             # filename
             fn = wav_file.split('/')[-1]  
             fn = fn.split('.')[0] +  "_" + passage.lower() + "." + fn.split('.')[-1]
@@ -71,12 +71,12 @@ def process_non_native(csv_file, passage, data_type):
 # process non_native corpus according to strategy 1
 #
 
-def process_non_native_strategy1(csv_file, passage):
+def process_non_native_strategy1(csv_file, passage, data_type):
     # create csv writer
     writer = csv.writer(csv_file,  delimiter=',')
     
-    # Get trails of speakers
-    parent_path  = _data_path + "non_native_data/wav48/" + passage
+   # Get trails of speakers
+    parent_path  = _data_path + "non_native_data/wav48/"+ data_type +"/"+ passage
     trail_list = glob.glob(parent_path + '/*')
    
     # add labels
@@ -99,23 +99,33 @@ def process_non_native_strategy1(csv_file, passage):
             # load wave file
             wave, sr = librosa.load(wav_file, mono=True, sr=None)
             
-            # re-sample ( 48K -> 16K )
+             # re-sample ( 48K -> 16K )
             wave = wave[::3]
+            # Create 4 extra copies
+            wave09 = librosa.effects.time_stretch(wave,0.9)
+            wave095 = librosa.effects.time_stretch(wave,0.95)
+            wave105 = librosa.effects.time_stretch(wave,1.05)
+            wave11 = librosa.effects.time_stretch(wave,1.1)
             
             # get mfcc feature
             mfcc = librosa.feature.mfcc(wave, sr=16000)
-            
-            # filename
-            fn = wav_file.split('/')[-1]  
-            fn = fn.split('.')[0] +  "_" + passage.lower() + "." + fn.split('.')[-1]
-            
-            # remove small mfcc files to prevent ctc errors
-            if len(label) < mfcc.shape[1]:
-                # save meta info
-                writer.writerow([fn] + label)
-    
-                # save mfcc
-                np.save('/media/srv/data/preprocess/non_native_mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)           
+            mfcc09 =  librosa.feature.mfcc(wave09, sr=16000)
+            mfcc095 = librosa.feature.mfcc(wave095, sr=16000)
+            mfcc105 =  librosa.feature.mfcc(wave105, sr=16000)
+            mfcc11 =  librosa.feature.mfcc(wave11, sr=16000)
+            mfccs = [("",mfcc),("09",mfcc09),("095",mfcc095),("105",mfcc105),("11",mfcc11)]
+           
+            for name, mfcc in mfccs:
+                 # filename
+                fn = wav_file.split('/')[-1] + name
+                fn = fn.split('.')[0] +  "_" + passage.lower() + "." + fn.split('.')[-1]
+                # remove small mfcc files to prevent ctc errors
+                if len(label) < mfcc.shape[1]:
+                    # save meta info
+                    writer.writerow([fn] + label)
+        
+                    # save mfcc
+                    np.save('/media/srv/data/preprocess/non_native_strategy1_mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)           
 #
 # process VCTK corpus
 #
@@ -317,7 +327,7 @@ if not os.path.exists('/media/srv/data/preprocess/mfcc'):
 #
 
 # TRAIN
-
+"""
 ## non-native corpus Northwind passage
 csv_f = open('/media/srv/data/preprocess/meta/non_native_train.csv', 'w')
 process_non_native(csv_f,"NorthWind","train")
@@ -333,8 +343,18 @@ csv_f.close()
 csv_f = open('/media/srv/data/preprocess/meta/non_native_test.csv', 'w')
 process_non_native(csv_f,"NorthWind","test")
 csv_f.close()
-
-
+"""
+#Strategy 1
+## non-native corpus Northwind passage
+csv_f = open('/media/srv/data/preprocess/meta/strategy1.csv', 'w')
+process_non_native_strategy1(csv_f,"NorthWind","train")
+csv_f.close()
+#
+## non-native corpus Rainbow passage
+#
+csv_f = open('/media/srv/data/preprocess/meta/strategy1.csv', 'a+')
+process_non_native_strategy1(csv_f,"Rainbow","train")
+csv_f.close()
 #
 ## VCTK corpus
 #csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'a+')
