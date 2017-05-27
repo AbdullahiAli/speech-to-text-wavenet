@@ -70,10 +70,10 @@ with tf.Session() as sess:
     saver.restore(sess, tf.train.latest_checkpoint('asset/train'))
     # run session
     for mfcc,label in zip(inputs,labels):
-        sess.run(tf.Print([1], [1], "hi"))
+        sess.run(tf.Print([1], [1], mfcc.eval()))
         predicted = sess.run(y, feed_dict={x: mfcc.eval()})
-        sess.run(tf.Print(mfcc.eval()))
-        #data.print_index(predicted)
+    
+        data.print_index(predicted)
         data.return_index(predicted)
         error.append(wer(predicted.split(),tf.as_string(label).split()))
     print("WER: " + (sum(error)/len(error)))
