@@ -70,7 +70,7 @@ with tf.Session() as sess:
     saver.restore(sess, tf.train.latest_checkpoint('asset/train'))
     # run session
     for mfcc,label in zip(inputs,labels):
-        sess.run(tf.Print([1], [1], mfcc.eval()))
+        sess.run(tf.Print([1], [1], mfcc))
         predicted = sess.run(y, feed_dict={x: mfcc.eval()})
     
         data.print_index(predicted)
