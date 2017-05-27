@@ -62,7 +62,12 @@ def index2str(index_list):
 def print_index(indices):
     for index_list in indices:
         print(index2str(index_list))
-
+        
+def return_index(indices):
+     sentence = ''
+     for index_list in indices:
+        sentence += " " + index2str(index_list)
+     return sentence
 
 # real-time wave to mfcc conversion function
 @tf.sg_producer_func
