@@ -28,7 +28,7 @@ batch_size = 16
 #
 
 # corpus input tensor ( with QueueRunner )
-data = SpeechCorpus(batch_size=batch_size, set_name=tf.sg_arg().set)
+data = SpeechCorpus(batch_size=batch_size, set_name = "non_native_test")
 
 # mfcc feature of audio
 x = data.mfcc
