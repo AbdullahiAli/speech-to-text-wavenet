@@ -30,6 +30,7 @@ x_train = tf.placeholder(dtype=tf.sg_floatx, shape=(batch_size, None, 20))
 train_logit = get_logit(x_train, voca_size=voca_size)
 estimator = SGDClassifier()
 print(np.array(train_logit))
+print(train_labels)
 estimator.fit(np.array(train_logit), train_labels)
 
 #
