@@ -57,7 +57,7 @@ logit = get_logit(x, voca_size=voca_size)
 
 
 # ctc decoding
-decoded, _ = tf.nn.ctc_beam_search_decoder(pred.sg_transpose(perm=[1, 0, 2]), seq_len, merge_repeated=False)
+decoded, _ = tf.nn.ctc_beam_search_decoder(logit.sg_transpose(perm=[1, 0, 2]), seq_len, merge_repeated=False)
 
 # to dense tensor
 y = tf.sparse_to_dense(decoded[0].indices, decoded[0].dense_shape, decoded[0].values) + 1
