@@ -4,10 +4,12 @@
 import sugartensor as tf
 import numpy as np
 import librosa
+from tensorflow.contrib.learn import LinearClassifier
 from model import *
 import data
 from wer import wer
 from softmax_classifier import *
+from tensorflow.contrib.learn import LinearClassifier
 __author__ = 'namju.kim@kakaobrain.com'
 
 
@@ -19,6 +21,14 @@ tf.sg_verbosity(10)
 #
 
 batch_size = 1     # batch size
+# train
+non_native_data_train = data.NonNativeSpeechCorpus(batch_size=batch_size * tf.sg_gpus(), set_name="non_native_train")
+train_inputs = non_native_data_train.mfcc
+train_labels = non_native_data_train.label
+x_train = tf.placeholder(dtype=tf.sg_floatx, shape=(batch_size, None, 20))
+train_logit = get_logit(x_train, voca_size=voca_size)
+estimator = LinearClassifier(feature_columns = train_logit)
+estimator.fit(train_logit, train_labels)
 
 #
 # inputs
@@ -42,7 +52,8 @@ seq_len = tf.not_equal(x.sg_sum(axis=2), 0.).sg_int().sg_sum(axis=1)
 # encode audio feature
 logit = get_logit(x, voca_size=voca_size)
 
-pred = get_predictions(logit)
+
+pred = estimator.predict(logit)
 y = pred.sg_transpose(perm=[1, 0, 2])
 
 # ctc decoding

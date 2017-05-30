@@ -6,6 +6,7 @@ import sugartensor as tf
 from data import SpeechCorpus, voca_size
 from model import *
 
+
 __author__ = 'a.ali@student.ru.nl'
 
 
@@ -29,6 +30,7 @@ num_dim = 128      # latent dimension
 #
 def get_predictions(logits):
     probabilities = tf.nn.softmax(logits)
+    
     return probabilities
 
 
