@@ -27,7 +27,7 @@ train_inputs = non_native_data_train.mfcc
 train_labels = non_native_data_train.label
 x_train = tf.placeholder(dtype=tf.sg_floatx, shape=(batch_size, None, 20))
 train_logit = get_logit(x_train, voca_size=voca_size)
-estimator = LinearClassifier(feature_columns = train_logit)
+estimator = LinearClassifier()
 estimator.fit(train_logit, train_labels)
 
 #
