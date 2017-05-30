@@ -10,6 +10,7 @@ import data
 from wer import wer
 from softmax_classifier import *
 from tensorflow.contrib.learn import LinearClassifier
+from sklearn.linear_model import SGDClassifier
 __author__ = 'namju.kim@kakaobrain.com'
 
 
@@ -27,7 +28,7 @@ train_inputs = non_native_data_train.mfcc
 train_labels = non_native_data_train.label
 x_train = tf.placeholder(dtype=tf.sg_floatx, shape=(batch_size, None, 20))
 train_logit = get_logit(x_train, voca_size=voca_size)
-estimator = LinearClassifier()
+estimator = SGDClassifier()
 estimator.fit(train_logit, train_labels)
 
 #
