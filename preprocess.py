@@ -102,18 +102,26 @@ def process_non_native_strategy1(csv_file, passage, data_type):
              # re-sample ( 48K -> 16K )
             wave = wave[::3]
             # Create 4 extra copies
+            wav08 = librosa.effects.time_stretch(wave,0.80)
+            wav085 = librosa.effects.time_stretch(wave,0.85)
             wave09 = librosa.effects.time_stretch(wave,0.9)
             wave095 = librosa.effects.time_stretch(wave,0.95)
             wave105 = librosa.effects.time_stretch(wave,1.05)
             wave11 = librosa.effects.time_stretch(wave,1.1)
-            
+            wav115 = librosa.effects.time_stretch(wave,1.15)
+            wav120 = librosa.effects.time_stretch(wave,1.20)
             # get mfcc feature
             mfcc = librosa.feature.mfcc(wave, sr=16000)
+            mfcc08 =  librosa.feature.mfcc(wav08, sr=16000)
+            mfcc085 =  librosa.feature.mfcc(wav085, sr=16000)
             mfcc09 =  librosa.feature.mfcc(wave09, sr=16000)
             mfcc095 = librosa.feature.mfcc(wave095, sr=16000)
             mfcc105 =  librosa.feature.mfcc(wave105, sr=16000)
             mfcc11 =  librosa.feature.mfcc(wave11, sr=16000)
-            mfccs = [("",mfcc),("09",mfcc09),("095",mfcc095),("105",mfcc105),("11",mfcc11)]
+            mfcc115 =  librosa.feature.mfcc(wav115, sr=16000)
+            mfcc120 =  librosa.feature.mfcc(wav120, sr=16000)
+            
+            mfccs = [("",mfcc),("080",mfcc08),("085",mfcc085),("09",mfcc09),("095",mfcc095),("105",mfcc105),("11",mfcc11),("115",mfcc115),("120",mfcc120)]
            
             for name, mfcc in mfccs:
                  # filename
