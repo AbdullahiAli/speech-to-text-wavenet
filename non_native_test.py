@@ -41,14 +41,14 @@ seq_len = tf.not_equal(x.sg_sum(axis=2), 0.).sg_int().sg_sum(axis=1)
 
 # encode audio feature
 logit = get_logit(x, voca_size=voca_size)
-print(logit)
-probability = get_predictions(logit)
-print(probability)
+
+y = get_predictions(logit)
+
 # ctc decoding
-decoded, _ = tf.nn.ctc_beam_search_decoder(probability.sg_transpose(perm=[1, 0, 2]), seq_len, merge_repeated=False)
+#decoded, _ = tf.nn.ctc_beam_search_decoder(probability.sg_transpose(perm=[1, 0, 2]), seq_len, merge_repeated=False)
 
 # to dense tensor
-y = tf.sparse_to_dense(decoded[0].indices, decoded[0].dense_shape, decoded[0].values) + 1
+#y = tf.sparse_to_dense(decoded[0].indices, decoded[0].dense_shape, decoded[0].values) + 1
 
 #
 # regcognize wave file
@@ -57,9 +57,7 @@ y = tf.sparse_to_dense(decoded[0].indices, decoded[0].dense_shape, decoded[0].va
 # command line argument for input wave file path#tf.sg_arg_def(file=('', 'speech wave file to recognize.'))
 
 # load wave file
-#wav, _ = librosa.load(tf.sg_arg().file, mono=True, sr=16000)
-# get mfcc feature
-#mfcc = np.transpose(np.expand_dims(librosa.feature.mfcc(wav, 16000), axis=0), [0, 2, 1])
+
 
 # run network
 with tf.Session() as sess:
