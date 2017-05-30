@@ -5,7 +5,7 @@
 import sugartensor as tf
 from data import SpeechCorpus, voca_size
 from model import *
-from tensorflow.contrib.layers import dense
+from tensorflow.layers import dense
 
 __author__ = 'a.ali@student.ru.nl'
 
