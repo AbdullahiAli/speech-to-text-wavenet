@@ -41,7 +41,9 @@ seq_len = tf.not_equal(x.sg_sum(axis=2), 0.).sg_int().sg_sum(axis=1)
 
 # encode audio feature
 logit = get_logit(x, voca_size=voca_size)
+print("logit: " + logit)
 probability = get_predictions(logit)
+print("probability: " + probability)
 # ctc decoding
 decoded, _ = tf.nn.ctc_beam_search_decoder(probability.sg_transpose(perm=[1, 0, 2]), seq_len, merge_repeated=False)
 
