@@ -29,9 +29,9 @@ train_labels = non_native_data_train.label
 x_train = tf.placeholder(dtype=tf.sg_floatx, shape=(batch_size, None, 20))
 train_logit = get_logit(x_train, voca_size=voca_size)
 estimator = SGDClassifier()
-print(np.array(train_logit))
+print(np.array(train_logit).sg_transpose(perm=[1, 0, 2]))
 
-estimator.fit(np.array(train_logit), train_labels)
+estimator.fit(np.array(train_logit.sg_transpose(perm=[1, 0, 2])), train_labels)
 
 #
 # inputs
