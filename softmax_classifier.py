@@ -29,7 +29,7 @@ tf.sg_verbosity(10)
 #
 def get_predictions(logits):
    
-   output = logits.sg_conv1d(dim = voca_size)
+   output = logits.sg_bypass(act = 'sigmoid')
    
 
 
