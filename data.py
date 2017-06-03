@@ -129,7 +129,7 @@ class NonNativeSpeechCorpus(object):
         # split data
         mfcc = [_augment_speech(np.load(file)) for file in mfcc_file]
         self.label, self.mfcc = label, mfcc
-     
+        print(np.shape(mfcc))
        
         # calc total batch count
         self.num_batch = len(label) // batch_size
