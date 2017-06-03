@@ -28,7 +28,10 @@ import sugartensor as tf
 # logit calculating graph using atrous convolution
 #
 def get_predictions(logits):
-    output = logits.sg_dense()
+   print(logits.get_shape())
+   output = tf.layers.dense(inputs=logits, units=4096, activation=None)
+
+
    
     return output
 
