@@ -84,8 +84,8 @@ with tf.Session() as sess:
     for mfcc, label in zip(inputs,labels):
         mfcc = np.transpose(np.expand_dims(mfcc,axis=0),[0,2,1])
         predicted = sess.run(y, feed_dict={x: mfcc})
-        #print(predicted)
-        #data.print_index(predicted)
+  
+        data.print_index(predicted)
         predicted = data.return_index(predicted)
         error.append(wer(predicted.split(),label.split()))
     print(error)
