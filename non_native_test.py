@@ -51,7 +51,7 @@ seq_len = tf.not_equal(x.sg_sum(axis=2), 0.).sg_int().sg_sum(axis=1)
 
 # encode audio feature
 logit = get_logit(x, voca_size=voca_size)
-linear = get_predictions(logit)
+
 
 
 

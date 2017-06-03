@@ -38,10 +38,10 @@ def get_loss(opt):
     # encode audio feature
     logits = get_logit(opt.input[opt.gpu_index], voca_size=voca_size)
 
-    linear = get_predictions(logits)
+
 
     # CTC loss
-    return linear.sg_ctc(target=opt.target[opt.gpu_index], seq_len=opt.seq_len[opt.gpu_index])
+    return logits.sg_ctc(target=opt.target[opt.gpu_index], seq_len=opt.seq_len[opt.gpu_index])
 
 #
 # retrain
