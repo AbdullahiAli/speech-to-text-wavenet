@@ -18,7 +18,7 @@ tf.sg_verbosity(10)
 # hyper parameters
 #
 
-import sugartensor as tf
+
 
 
 
@@ -28,8 +28,9 @@ import sugartensor as tf
 # logit calculating graph using atrous convolution
 #
 def get_predictions(logits):
-   print(logits.get_shape())
-   output = tf.layers.dense(inputs=logits, units=4096, activation=None)
+   
+   output = logits.sg_dense(dim = voca_size)
+   
 
 
    
