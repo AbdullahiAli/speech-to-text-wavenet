@@ -354,6 +354,7 @@ csv_f.close()
 """
 #Strategy 1
 ## non-native corpus Northwind passage
+"""
 csv_f = open('/media/srv/data/preprocess/meta/strategy1.csv', 'w')
 process_non_native_strategy1(csv_f,"NorthWind","train")
 csv_f.close()
@@ -363,6 +364,7 @@ csv_f.close()
 csv_f = open('/media/srv/data/preprocess/meta/strategy1.csv', 'a+')
 process_non_native_strategy1(csv_f,"Rainbow","train")
 csv_f.close()
+"""
 #
 ## VCTK corpus
 #csv_f = open('/media/srv/data/preprocess/meta/train.csv', 'a+')
