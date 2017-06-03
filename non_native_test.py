@@ -79,13 +79,13 @@ with tf.Session() as sess:
     # restore parameters
     saver = tf.train.Saver()
     saver.restore(sess, tf.train.latest_checkpoint('asset/train'))
-    new_inputs = list(inputs)
+   
     # run session
     for mfcc, label in zip(new_inputs,labels):
         mfcc = np.transpose(np.expand_dims(mfcc,axis=0),[0,2,1])
         predicted = sess.run(y, feed_dict={x: mfcc})
-       
-        data.print_index(predicted)
+        #print(predicted)
+        #data.print_index(predicted)
         predicted = data.return_index(predicted)
         error.append(wer(predicted.split(),label.split()))
     print(error)

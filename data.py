@@ -51,6 +51,7 @@ def index2str(index_list):
     # transform label index to character
     str_ = ''
     for ch in index_list:
+        print(ch)
         if ch > 0:
             str_ += index2byte[ch]
         elif ch == 0:  # <EOS>
