@@ -167,9 +167,9 @@ class SpeechCorpus(object):
         #label, mfcc_file = list(label), list(mfcc_file)
         
         # Artificially enlarge the data set if non-native data
-        if set_name == 'non_native_train':
-            label *= 500
-            mfcc_file *= 500
+        #if set_name == 'non_native_train':
+            #label *= 500
+            #mfcc_file *= 500
        
        
         # to constant tensor
