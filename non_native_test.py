@@ -9,7 +9,7 @@ from model import *
 import data
 from wer import wer
 from softmax_classifier import *
-from tensorflow.contrib.learn import LinearClassifier
+
 __author__ = 'namju.kim@kakaobrain.com'
 
 
@@ -53,7 +53,6 @@ seq_len = tf.not_equal(x.sg_sum(axis=2), 0.).sg_int().sg_sum(axis=1)
 logit = get_logit(x, voca_size=voca_size)
 linear = get_predictions(logit)
 
-#pred = get_predictions(logit)
 
 
 # ctc decoding
@@ -80,9 +79,9 @@ with tf.Session() as sess:
     # restore parameters
     saver = tf.train.Saver()
     saver.restore(sess, tf.train.latest_checkpoint('asset/train'))
-    print(inputs)
+    new_inputs = list(inputs)
     # run session
-    for mfcc, label in zip(inputs,labels):
+    for mfcc, label in zip(new_inputs,labels):
         mfcc = np.transpose(np.expand_dims(mfcc,axis=0),[0,2,1])
         predicted = sess.run(y, feed_dict={x: mfcc})
        

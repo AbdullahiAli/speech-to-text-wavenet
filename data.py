@@ -107,7 +107,7 @@ def _augment_speech(mfcc):
 # Speech Corpus
 class NonNativeSpeechCorpus(object):
 
-    def __init__(self, batch_size=16, set_name='train'):
+      def __init__(self, batch_size=16, set_name='train'):
 
         # load meta file
         label, mfcc_file = [], []
@@ -120,35 +120,18 @@ class NonNativeSpeechCorpus(object):
                       mfcc_file.append(_data_path + 'preprocess/non_native_train_mfcc/' + row[0] + '.npy')
                 elif set_name == "non_native_test":
                     mfcc_file.append(_data_path + 'preprocess/non_native_test_mfcc/' + row[0] + '.npy')
-               
+                else:
+                    mfcc_file.append(_data_path + 'preprocess/mfcc/' + row[0] + '.npy')
                 # label info ( convert to string object for variable-length support )
                 label.append(np.asarray(row[1:], dtype=np.int).tostring())
 
        
-        label_t = tf.convert_to_tensor(label)
-        mfcc_file_t = tf.convert_to_tensor(mfcc_file)
-
-        # create queue from constant tensor
-        label_q, mfcc_file_q \
-            = tf.train.slice_input_producer([label_t, mfcc_file_t], shuffle=True)
-
-        # create label, mfcc queue
-        label_q, mfcc_q = _load_mfcc(source=[label_q, mfcc_file_q],
-                                     dtypes=[tf.sg_intx, tf.sg_floatx],
-                                     capacity=256, num_threads=64)
-
-
-        # create batch queue with dynamic pad
-        batch_queue = tf.train.batch([label_q, mfcc_q], batch_size,
-                                     shapes=[(None,), (20, None)],
-                                     num_threads=64, capacity=batch_size*32,
-                                     dynamic_pad=True)
 
         # split data
-        self.label, self.mfcc = batch_queue
+        mfcc = [_augment_speech(np.load(file)) for file in mfcc_file]
+        self.label, self.mfcc = label, mfcc
      
-        # batch * time * dim
-        self.mfcc = self.mfcc.sg_transpose(perm=[0, 2, 1])
+       
         # calc total batch count
         self.num_batch = len(label) // batch_size
 
