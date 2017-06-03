@@ -133,7 +133,62 @@ def process_non_native_strategy1(csv_file, passage, data_type):
                     writer.writerow([fn] + label)
         
                     # save mfcc
-                    np.save('/media/srv/data/preprocess/non_native_strategy1_mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)           
+                    np.save('/media/srv/data/preprocess/non_native_strategy1_mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)  
+
+def process_non_native_strategy2(csv_file, passage, data_type):
+    # create csv writer
+    writer = csv.writer(csv_file,  delimiter=',')
+    
+   # Get trails of speakers
+    parent_path  = _data_path + "non_native_data/wav48/"+ data_type +"/"+ passage
+    trail_list = glob.glob(parent_path + '/*')
+   
+    # add labels
+    text_path = _data_path + "non_native_data/txt/" + passage.lower() + '.txt'
+    
+    text = open(text_path).read()
+    sents_n = text.split('.')
+    sentences = [line.replace('\n','') for line in sents_n]
+   
+    labels = [data.str2index(sentence) for sentence in sentences][0:-1]
+    
+    # add wav files
+    for trail in trail_list:
+        # wav file names
+        wav_file_ids = glob.glob(trail +'/*.wav')
+       
+        wav_file_ids = [name for name in wav_file_ids if "_000.wav" not in name]
+       
+        for wav_file, label in zip(wav_file_ids,labels):
+            # load wave file
+            wave, sr = librosa.load(wav_file, mono=True, sr=None)
+            
+             # re-sample ( 48K -> 16K )
+            wave = wave[::3]
+            # Add Uniform noise
+            wave_uniform = wave + np.random.uniform(size=wave.shape)
+            # Add laplace noise
+            wave_laplace = wave + np.random.laplace(size = wave.shape)
+            wave_normal = wave + np.random.normal(size = wave.shape)
+            # get mfcc feature
+            mfcc = librosa.feature.mfcc(wave, sr=16000)
+            mfcc_uniform =  librosa.feature.mfcc(wave_uniform, sr=16000)
+            mfcc_laplace =  librosa.feature.mfcc(wave_laplace, sr=16000)
+            mfcc_normal =  librosa.feature.mfcc(wave_normal, sr=16000)
+            
+            mfccs = [("",mfcc), ("uniform",mfcc_uniform),("laplace",mfcc_laplace),("normal",mfcc_normal)]
+           
+            for name, mfcc in mfccs:
+                 # filename
+                fn = wav_file.split('/')[-1] + name
+                fn = fn.split('.')[0] +  "_" + passage.lower() + "." + fn.split('.')[-1]
+                # remove small mfcc files to prevent ctc errors
+                if len(label) < mfcc.shape[1]:
+                    # save meta info
+                    writer.writerow([fn] + label)
+        
+                    # save mfcc
+                    np.save('/media/srv/data/preprocess/non_native_strategy2_mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)          
 #
 # process VCTK corpus
 #
@@ -352,18 +407,19 @@ csv_f = open('/media/srv/data/preprocess/meta/non_native_test.csv', 'w')
 process_non_native(csv_f,"NorthWind","test")
 csv_f.close()
 """
-#Strategy 1
+#Strategy 2
 ## non-native corpus Northwind passage
-"""
-csv_f = open('/media/srv/data/preprocess/meta/strategy1.csv', 'w')
-process_non_native_strategy1(csv_f,"NorthWind","train")
+
+csv_f = open('/media/srv/data/preprocess/meta/strategy2.csv', 'w')
+process_non_native_strategy2(csv_f,"NorthWind","train")
 csv_f.close()
 #
 ## non-native corpus Rainbow passage
 #
-csv_f = open('/media/srv/data/preprocess/meta/strategy1.csv', 'a+')
-process_non_native_strategy1(csv_f,"Rainbow","train")
+csv_f = open('/media/srv/data/preprocess/meta/strategy2.csv', 'a+')
+process_non_native_strategy2(csv_f,"Rainbow","train")
 csv_f.close()
+
 """
 #
 ## VCTK corpus
@@ -411,3 +467,4 @@ csv_f.close()
 #csv_f = open('/media/srv/data/preprocess/meta/test.csv', 'w')
 #process_ted(csv_f, 'test')
 #csv_f.close()
+"""

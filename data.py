@@ -154,8 +154,8 @@ class SpeechCorpus(object):
                 
                 if set_name == 'strategy1':
                       mfcc_file.append(_data_path + 'preprocess/non_native_strategy1_mfcc/' + row[0] + '.npy')
-                elif set_name == "non_native_train":
-                    mfcc_file.append(_data_path + 'preprocess/non_native_train_mfcc/' + row[0] + '.npy')
+                elif set_name == "strategy2":
+                    mfcc_file.append(_data_path + 'preprocess/non_native_strategy2_mfcc/' + row[0] + '.npy')
                 else:
                     mfcc_file.append(_data_path + 'preprocess/mfcc/' + row[0] + '.npy')
                 # label info ( convert to string object for variable-length support )
@@ -168,9 +168,9 @@ class SpeechCorpus(object):
         #label, mfcc_file = list(label), list(mfcc_file)
         
         # Artificially enlarge the data set if non-native data
-        if set_name == 'non_native_train':
-            label *= 500
-            mfcc_file *= 500
+       # if set_name == 'non_native_train':
+          #  label *= 500
+           # mfcc_file *= 500
        
        
         # to constant tensor
