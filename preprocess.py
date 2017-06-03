@@ -463,13 +463,13 @@ csv_f.close()
 ## non-native corpus Northwind passage
 
 csv_f = open('/media/srv/data/preprocess/meta/strategy1.csv', 'w')
-process_non_native_strategy3(csv_f,"NorthWind","train")
+process_non_native_strategy1(csv_f,"NorthWind","train")
 csv_f.close()
 #
 ## non-native corpus Rainbow passage
 #
 csv_f = open('/media/srv/data/preprocess/meta/strategy1.csv', 'a+')
-process_non_native_strategy3(csv_f,"Rainbow","train")
+process_non_native_strategy1(csv_f,"Rainbow","train")
 csv_f.close()
 
 """
