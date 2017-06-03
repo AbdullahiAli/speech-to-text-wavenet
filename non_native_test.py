@@ -81,7 +81,7 @@ with tf.Session() as sess:
     saver.restore(sess, tf.train.latest_checkpoint('asset/train'))
    
     # run session
-    for mfcc, label in zip(new_inputs,labels):
+    for mfcc, label in zip(inputs,labels):
         mfcc = np.transpose(np.expand_dims(mfcc,axis=0),[0,2,1])
         predicted = sess.run(y, feed_dict={x: mfcc})
         #print(predicted)
