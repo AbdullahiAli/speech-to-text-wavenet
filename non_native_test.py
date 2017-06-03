@@ -51,13 +51,13 @@ seq_len = tf.not_equal(x.sg_sum(axis=2), 0.).sg_int().sg_sum(axis=1)
 
 # encode audio feature
 logit = get_logit(x, voca_size=voca_size)
-
+linear = get_predictions(logit)
 
 #pred = get_predictions(logit)
 
 
 # ctc decoding
-decoded, _ = tf.nn.ctc_beam_search_decoder(logit.sg_transpose(perm=[1, 0, 2]), seq_len, merge_repeated=False)
+decoded, _ = tf.nn.ctc_beam_search_decoder(linear.sg_transpose(perm=[1, 0, 2]), seq_len, merge_repeated=False)
 
 # to dense tensor
 y = tf.sparse_to_dense(decoded[0].indices, decoded[0].dense_shape, decoded[0].values) + 1
@@ -80,7 +80,7 @@ with tf.Session() as sess:
     # restore parameters
     saver = tf.train.Saver()
     saver.restore(sess, tf.train.latest_checkpoint('asset/train'))
-    
+    print(inputs)
     # run session
     for mfcc, label in zip(inputs,labels):
         mfcc = np.transpose(np.expand_dims(mfcc,axis=0),[0,2,1])
