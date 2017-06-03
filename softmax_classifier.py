@@ -29,7 +29,7 @@ tf.sg_verbosity(10)
 #
 def get_predictions(logits):
    
-   output = logits.sg_bypass(act = 'sigmoid')
+   output = logits.sg_softmax()
    
 
 
