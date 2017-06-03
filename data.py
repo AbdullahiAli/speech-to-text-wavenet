@@ -154,8 +154,8 @@ class SpeechCorpus(object):
                 
                 if set_name == 'strategy1':
                       mfcc_file.append(_data_path + 'preprocess/non_native_strategy1_mfcc/' + row[0] + '.npy')
-                elif set_name == "strategy2":
-                    mfcc_file.append(_data_path + 'preprocess/non_native_strategy2_mfcc/' + row[0] + '.npy')
+                elif set_name == "strategy3":
+                    mfcc_file.append(_data_path + 'preprocess/non_native_strategy3_mfcc/' + row[0] + '.npy')
                 else:
                     mfcc_file.append(_data_path + 'preprocess/mfcc/' + row[0] + '.npy')
                 # label info ( convert to string object for variable-length support )
