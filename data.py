@@ -51,7 +51,7 @@ def index2str(index_list):
     # transform label index to character
     str_ = ''
     for ch in index_list:
-        print(ch)
+      
         if ch > 0:
             str_ += index2byte[ch]
         elif ch == 0:  # <EOS>
@@ -169,8 +169,8 @@ class SpeechCorpus(object):
         
         # Artificially enlarge the data set if non-native data
         if set_name == 'non_native_train':
-            label *= 10
-            mfcc_file *= 10
+            label *= 500
+            mfcc_file *= 500
        
        
         # to constant tensor
