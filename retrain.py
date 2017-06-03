@@ -46,7 +46,7 @@ def get_loss(opt):
 #
 # retrain
 #
-tf.sg_train(optim = 'Adam', lr=0.1, loss=get_loss(input=inputs, target=labels, seq_len=seq_len),
-            ep_size=non_native_data.num_batch, max_ep=50)
+tf.sg_train(optim = 'Adam', lr=0.01, loss=get_loss(input=inputs, target=labels, seq_len=seq_len),
+            ep_size=non_native_data.num_batch, max_ep=200)
             
 
