@@ -38,15 +38,13 @@ def get_loss(opt):
     # encode audio feature
     logits = get_logit(opt.input[opt.gpu_index], voca_size=voca_size)
 
-
-
     # CTC loss
     return logits.sg_ctc(target=opt.target[opt.gpu_index], seq_len=opt.seq_len[opt.gpu_index])
 
 #
 # retrain
 #
-tf.sg_train(optim = 'Adam', lr=0.01, loss=get_loss(input=inputs, target=labels, seq_len=seq_len),
+tf.sg_train(optim = 'Adam', lr=0.001, loss=get_loss(input=inputs, target=labels, seq_len=seq_len),
             ep_size=non_native_data.num_batch, max_ep=50)
             
 
