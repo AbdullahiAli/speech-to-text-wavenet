@@ -86,8 +86,9 @@ with tf.Session() as sess:
         predicted = sess.run(y, feed_dict={x: mfcc})
   
         #data.print_index(predicted)
-        print(label)
+        
         predicted = data.return_index(predicted)
+        label = label.return_indiex(label)
         error.append(wer(predicted.split(),label.split()))
     print(error)
     print("WER: %2f" % (sum(error)/len(error)))
