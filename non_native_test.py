@@ -88,6 +88,7 @@ with tf.Session() as sess:
         #data.print_index(predicted)
         
         predicted = data.return_index(predicted)
+        print(label)
         label = data.return_index(label)
         error.append(wer(predicted.split(),label.split()))
     print(error)
