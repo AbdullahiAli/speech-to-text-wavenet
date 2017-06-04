@@ -85,7 +85,8 @@ with tf.Session() as sess:
         mfcc = np.transpose(np.expand_dims(mfcc,axis=0),[0,2,1])
         predicted = sess.run(y, feed_dict={x: mfcc})
   
-        data.print_index(predicted)
+        #data.print_index(predicted)
+        print(label)
         predicted = data.return_index(predicted)
         error.append(wer(predicted.split(),label.split()))
     print(error)
