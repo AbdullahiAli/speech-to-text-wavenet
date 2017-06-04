@@ -124,7 +124,7 @@ class NonNativeSpeechCorpus(object):
                 else:
                     mfcc_file.append(_data_path + 'preprocess/mfcc/' + row[0] + '.npy')
                 # label info ( convert to string object for variable-length support )
-                label.append(np.asarray(row[1:], dtype=np.int).tostring())
+                label.append(np.asarray(row[1:], dtype=np.int))
 
        
 
