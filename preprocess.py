@@ -71,6 +71,17 @@ def process_non_native(csv_file, passage, data_type):
 # process non_native corpus according to strategy 1
 #
 
+def yield_mfcc_copies(wave):
+    
+    name_mfcc = []
+    pertubations = np.arange(0.7,1.3,0.01)
+    for perturb in pertubations:
+        p_wave = librosa.effects.time_stretch(wave,perturb)
+        p_mfcc = librosa.feature.mfcc(p_wave, sr=16000)
+        name_mfcc.append((str(int(perturb*10)), p_mfcc))
+    return name_mfcc
+        
+    
 def process_non_native_strategy1(csv_file, passage, data_type):
     # create csv writer
     writer = csv.writer(csv_file,  delimiter=',')
@@ -102,20 +113,21 @@ def process_non_native_strategy1(csv_file, passage, data_type):
              # re-sample ( 48K -> 16K )
             wave = wave[::3]
             # Create 4 extra copies
-         
-            wave09 = librosa.effects.time_stretch(wave,0.9)
-            wave095 = librosa.effects.time_stretch(wave,0.95)
-            wave105 = librosa.effects.time_stretch(wave,1.05)
+            
+            #wave09 = librosa.effects.time_stretch(wave,0.9)
+           # wave095 = librosa.effects.time_stretch(wave,0.95)
+            #wave105 = librosa.effects.time_stretch(wave,1.05)
          
     
             # get mfcc feature
-            mfcc = librosa.feature.mfcc(wave, sr=16000)
-            mfcc09 =  librosa.feature.mfcc(wave09, sr=16000)
-            mfcc095 = librosa.feature.mfcc(wave095, sr=16000)
-            mfcc105 =  librosa.feature.mfcc(wave105, sr=16000)
+          #  mfcc = librosa.feature.mfcc(wave, sr=16000)
+           # mfcc09 =  librosa.feature.mfcc(wave09, sr=16000)
+           # mfcc095 = librosa.feature.mfcc(wave095, sr=16000)
+           # mfcc105 =  librosa.feature.mfcc(wave105, sr=16000)
            
             
-            mfccs = [("",mfcc),("09",mfcc09),("095",mfcc095),("105",mfcc105)]
+            #mfccs = [("",mfcc),("09",mfcc09),("095",mfcc095),("105",mfcc105)]
+            mfccs = yield_mfcc_copies(wave)
            
             for name, mfcc in mfccs:
                  # filename
