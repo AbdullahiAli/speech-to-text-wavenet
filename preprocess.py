@@ -139,7 +139,7 @@ def process_non_native_strategy1(csv_file, passage, data_type):
                     writer.writerow([fn] + label)
         
                     # save mfcc
-                    np.save('/media/srv/data/preprocess/non_native_strategy1_mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)  
+                    np.save('/media/srv/data/preprocess/non_native_strategy12_mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)  
 
 
 def process_non_native_strategy2(csv_file, passage, data_type):
@@ -195,7 +195,7 @@ def process_non_native_strategy2(csv_file, passage, data_type):
                     writer.writerow([fn] + label)
         
                     # save mfcc
-                    np.save('/media/srv/data/preprocess/non_native_strategy2_mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)   
+                    np.save('/media/srv/data/preprocess/non_native_strategy12_mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)   
                     
 def process_non_native_strategy3(csv_file, passage, data_type):
     # create csv writer
