@@ -114,20 +114,20 @@ def process_non_native_strategy1(csv_file, passage, data_type):
             wave = wave[::3]
             # Create 4 extra copies
             
-            wave09 = librosa.effects.time_stretch(wave,0.9)
-            wave095 = librosa.effects.time_stretch(wave,0.95)
-            wave105 = librosa.effects.time_stretch(wave,1.05)
+            #wave09 = librosa.effects.time_stretch(wave,0.9)
+           # wave095 = librosa.effects.time_stretch(wave,0.95)
+           # wave105 = librosa.effects.time_stretch(wave,1.05)
          
     
             # get mfcc feature
-            mfcc = librosa.feature.mfcc(wave, sr=16000)
-            mfcc09 =  librosa.feature.mfcc(wave09, sr=16000)
-            mfcc095 = librosa.feature.mfcc(wave095, sr=16000)
-            mfcc105 =  librosa.feature.mfcc(wave105, sr=16000)
+          #  mfcc = librosa.feature.mfcc(wave, sr=16000)
+          #  mfcc09 =  librosa.feature.mfcc(wave09, sr=16000)
+          #  mfcc095 = librosa.feature.mfcc(wave095, sr=16000)
+          #  mfcc105 =  librosa.feature.mfcc(wave105, sr=16000)
            
             
-            mfccs = [("",mfcc),("09",mfcc09),("095",mfcc095),("105",mfcc105)]
-            #mfccs = yield_mfcc_copies(wave)
+           # mfccs = [("",mfcc),("09",mfcc09),("095",mfcc095),("105",mfcc105)]
+            mfccs = yield_mfcc_copies(wave)
            
             for name, mfcc in mfccs:
                  # filename
@@ -139,7 +139,7 @@ def process_non_native_strategy1(csv_file, passage, data_type):
                     writer.writerow([fn] + label)
         
                     # save mfcc
-                    np.save('/media/srv/data/preprocess/non_native_strategy12_mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)  
+                    np.save('/media/srv/data/preprocess/non_native_strategy1_mfcc/' + fn +  '.npy', mfcc, allow_pickle=False)  
 
 
 def process_non_native_strategy2(csv_file, passage, data_type):
@@ -474,28 +474,28 @@ csv_f.close()
 #Strategy 2
 ## non-native corpus Northwind passage
 
-csv_f = open('/media/srv/data/preprocess/meta/strategy12.csv', 'w')
+csv_f = open('/media/srv/data/preprocess/meta/strategy1.csv', 'w')
 process_non_native_strategy1(csv_f,"NorthWind","train")
 csv_f.close()
 #
 ## non-native corpus Rainbow passage
 #
-csv_f = open('/media/srv/data/preprocess/meta/strategy12.csv', 'a+')
+csv_f = open('/media/srv/data/preprocess/meta/strategy1.csv', 'a+')
 process_non_native_strategy1(csv_f,"Rainbow","train")
 csv_f.close()
 
-#Strategy 2
-## non-native corpus Northwind passage
-
-csv_f = open('/media/srv/data/preprocess/meta/strategy12.csv', 'a+')
-process_non_native_strategy2(csv_f,"NorthWind","train")
-csv_f.close()
+##Strategy 2
+### non-native corpus Northwind passage
 #
-## non-native corpus Rainbow passage
-#
-csv_f = open('/media/srv/data/preprocess/meta/strategy12.csv', 'a+')
-process_non_native_strategy2(csv_f,"Rainbow","train")
-csv_f.close()
+#csv_f = open('/media/srv/data/preprocess/meta/strategy12.csv', 'a+')
+#process_non_native_strategy2(csv_f,"NorthWind","train")
+#csv_f.close()
+##
+### non-native corpus Rainbow passage
+##
+#csv_f = open('/media/srv/data/preprocess/meta/strategy12.csv', 'a+')
+#process_non_native_strategy2(csv_f,"Rainbow","train")
+#csv_f.close()
 
 """
 #

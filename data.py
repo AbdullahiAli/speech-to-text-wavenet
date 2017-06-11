@@ -151,8 +151,8 @@ class SpeechCorpus(object):
             for row in reader:
                 # mfcc file
                 
-                if set_name == 'strategy12':
-                      mfcc_file.append(_data_path + 'preprocess/non_native_strategy12_mfcc/' + row[0] + '.npy')
+                if set_name == 'strategy1':
+                      mfcc_file.append(_data_path + 'preprocess/non_native_strategy1_mfcc/' + row[0] + '.npy')
                       
                 elif set_name == "strategy3":
                     mfcc_file.append(_data_path + 'preprocess/non_native_strategy3_mfcc/' + row[0] + '.npy')

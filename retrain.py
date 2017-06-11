@@ -19,7 +19,7 @@ batch_size = 16    # total batch size
 
             
 # non-native corpus input tensor
-non_native_data =  SpeechCorpus(batch_size=batch_size * tf.sg_gpus(), set_name ="strategy12")
+non_native_data =  SpeechCorpus(batch_size=batch_size * tf.sg_gpus(), set_name ="strategy1")
 
 # non_native_mfcc features of audio
 inputs = tf.split(non_native_data.mfcc, tf.sg_gpus(), axis = 0)
