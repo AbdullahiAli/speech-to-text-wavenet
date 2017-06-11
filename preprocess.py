@@ -134,7 +134,7 @@ def process_non_native_strategy1(csv_file, passage, data_type):
                 fn = wav_file.split('/')[-1] + name
                 fn = fn.split('.')[0] +  "_" + passage.lower() + "." + fn.split('.')[-1]
                 # remove small mfcc files to prevent ctc errors
-                print(len(label) < mfcc.shape[1])
+                print("label: %d, mfcc: %d, " % (len(label), mfcc.shape[1]))
                 if len(label) < mfcc.shape[1]:
                     # save meta info
                     writer.writerow([fn] + label)
