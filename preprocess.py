@@ -74,7 +74,7 @@ def process_non_native(csv_file, passage, data_type):
 def yield_mfcc_copies(wave):
     
     name_mfcc = []
-    pertubations = np.arange(0.9,1.1,0.01)
+    pertubations = np.arange(0.9,1.1,0.03)
     for perturb in pertubations:
         p_wave = librosa.effects.time_stretch(wave,perturb)
         p_mfcc = librosa.feature.mfcc(p_wave, sr=16000)
