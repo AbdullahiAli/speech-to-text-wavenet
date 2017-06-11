@@ -75,10 +75,10 @@ def yield_mfcc_copies(wave):
     
     name_mfcc = []
     pertubations = np.arange(0.9,1.1,0.03)
-    for perturb in pertubations:
+    for i,perturb in enumerate(pertubations):
         p_wave = librosa.effects.time_stretch(wave,perturb)
         p_mfcc = librosa.feature.mfcc(p_wave, sr=16000)
-        name_mfcc.append((str(int(perturb*10)), p_mfcc))
+        name_mfcc.append((str(int(perturb*10)) + str(i), p_mfcc))
     return name_mfcc
         
     
