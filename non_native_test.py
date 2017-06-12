@@ -93,7 +93,7 @@ with tf.Session() as sess:
         label = data.index2str(label)
         print(predicted)
         #error.append(wer(predicted.split(),label.split()))
-        error.append(nltk.translate.bleu_score.corpus_bleu(predicted.split(),label.split()))
+        error.append(nltk.metrics.scores.f_measure(predicted.split(),label.split()))
     print(error)
     print("WER: %2f" % (sum(error)/len(error)))
         
