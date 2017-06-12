@@ -4,7 +4,8 @@
 import sugartensor as tf
 import numpy as np
 import librosa
-from tensorflow.contrib.learn import LinearClassifier
+from tensorflow.contrib.learn import 
+import nltk
 from model import *
 import data
 from wer import wer
@@ -91,9 +92,10 @@ with tf.Session() as sess:
      
         label = data.index2str(label)
         print(predicted)
-        error.append(wer(predicted.split(),label.split()))
+        #error.append(wer(predicted.split(),label.split()))
+        error.append(nltk.translate.bleu_score.corpus_bleu(predicted.split(),label.split()))
     print(error)
-    print("WER: %2f" % (sum(error)/len(error)))
+    print("BLEU: %2f" % (sum(error)/len(error)))
         
     # print label
     
